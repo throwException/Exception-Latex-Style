@@ -1,0 +1,17 @@
+% !TEX encoding = UTF-8 Unicode
+%-------------------------------------------------------
+% Author: Stefan Thöni
+% Email: stefan@savvy.ch
+%-------------------------------------------------------
+
+\ProvidesPackage{exbasic}[2024/10/11 v1.0 (Stefan 'Exception' Thöni)]
+
+\RequirePackage[german=swiss]{csquotes}
+
+\newcommand{\parnum}{\arabic{parcount}}
+\newcounter{parcount}
+\newcommand\p{%
+    \stepcounter{parcount}%
+    \hspace{-0.12cm}\leavevmode\marginpar[\hfill\parnum]{\parnum}%
+}
+

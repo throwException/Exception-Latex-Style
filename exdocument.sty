@@ -1,0 +1,182 @@
+% !TEX encoding = UTF-8 Unicode
+%-------------------------------------------------------
+% Author: Stefan Thöni
+% Email: stefan@savvy.ch
+%-------------------------------------------------------
+
+\ProvidesPackage{exdocument}[2024/10/10 v2.0 (Stefan 'Exception' Thöni)]
+
+\RequirePackage{exbasic}
+\RequirePackage{xifthen}
+\RequirePackage{calc}
+\RequirePackage{scrbase}
+\RequirePackage{lastpage}
+\RequirePackage{color}
+\RequirePackage{textpos}
+\RequirePackage[automark]{scrlayer-scrpage}
+
+% -----------------------------------
+% Sprache
+% -----------------------------------
+\RequirePackage[english,french,italian,ngerman]{babel}
+
+% -----------------------------------
+% Schrift und Absatz
+% -----------------------------------
+
+\RequirePackage[parfill]{parskip}
+\RequirePackage{ifxetex}
+
+\ifxetex
+	\RequirePackage{fontspec}
+	\RequirePackage{xltxtra}
+	\RequirePackage{xunicode}
+	
+	\setromanfont[
+		BoldFont=Aller Bold
+	]{Aller Light}
+	\setsansfont[
+		BoldFont=Aller Bold
+	]{Aller Light}
+	%\setmonofont[Scale=MatchLowercase]{Andale Mono}
+\else
+	\RequirePackage[utf8]{inputenc}
+	\RequirePackage[T1]{fontenc}
+\fi
+
+\renewcommand{\familydefault}{\sfdefault}
+
+\setkomafont{pagefoot}{\upshape}
+\setkomafont{pagehead}{\upshape}
+\setkomafont{sectioning}{\bfseries}
+
+\KOMAoptions{fontsize=11pt}
+
+% -----------------------------------
+% Logos
+% -----------------------------------
+\RequirePackage{graphicx}
+\RequirePackage{eso-pic}
+
+\newlength{\hlogoheight}
+
+% -----------------------------------
+% Title für Organ oder Default
+% -----------------------------------
+
+% -----------------------------------
+% default and update values for title
+% -----------------------------------
+\newcommand{\headername}{}
+\newcommand{\titlepagespace}{3em}
+
+% -----------------------------------
+% Kopf- und fusszeile
+% -----------------------------------
+\KOMAoptions{headinclude=true}
+\KOMAoptions{footinclude=false}
+\KOMAoptions{headlines=3}
+\KOMAoptions{pagesize}
+\recalctypearea
+
+\clearpairofpagestyles
+\pagestyle{scrheadings}
+
+\setlength{\marginparwidth}{2.1em}
+
+
+\newcommand{\rheaderplain}{
+	\raisebox{0em}{
+		\begin{tabular}[t]{rp{\marginparwidth}}
+			\scriptsize & \\
+			\textbf{\@title}   & \hfill \pagemark{}/\pageref{LastPage}\\
+			\hline
+		\end{tabular}
+	}
+}
+
+\newcommand{\lheaderplain}{
+	\raisebox{0em}{
+		\begin{tabular}[t]{p{\marginparwidth-1em}l}
+			& \scriptsize \\
+			\raisebox{0em}{\pagemark} & \textbf{\@title}   \\
+			\hline
+		\end{tabular}
+	}
+}
+
+\newcommand{\rheadermark}{
+	\raisebox{0em}{
+		\begin{tabular}[t]{rp{\marginparwidth-0.7em}}
+			\textbf{\@title} & \\
+			\scriptsize \headmark & \hfill\pagemark / \pageref{LastPage}\\
+			\hline
+		\end{tabular}
+	}
+}
+
+\newcommand{\lheadermark}{
+	\raisebox{0em}{
+		\begin{tabular}[t]{p{\marginparwidth-1em}l}
+			& \textbf{\@title} \\
+			\raisebox{0em}{\pagemark / \pageref{LastPage}} & \scriptsize \headmark \\
+			\hline
+		\end{tabular}
+	}
+}
+
+\rohead[\rheaderplain]{\if@chapter\rheadermark\else\rheaderplain\fi}
+\lehead[\lheaderplain]{\if@chapter\lheadermark\else\lheaderplain\fi}
+\ifoot[%
+	\scriptsize \@author { }| \@date%
+]{%
+	\scriptsize \@author { }| \@date%
+}
+\newcommand{\secret}[1]{%
+	\chead{
+		\begin{textblock}{11}(0,-1)
+			{\color{red} \Large \textbf{#1}}
+		\end{textblock}
+	}
+}
+
+ \deftriplepagestyle{title}{}{}{}{}{}{}
+
+
+\renewenvironment{titlepage}{
+	\ClearShipoutPicture
+	\AddToShipoutPicture*{
+		\begin{tikzpicture}
+			\draw (0,0) -- (0,0);
+			\draw [color=orange, fill=orange](\ta@bcor+1cm,1cm) rectangle (\paperwidth-1cm,\paperheight-1cm);
+		\end{tikzpicture}}
+}{
+	\begin{flushright}
+		\vfill\biglogonego
+	\end{flushright}
+	\thispagestyle{empty}
+	\newpage
+	\AddToShipoutPicture{\wellen}
+}
+
+\renewcommand{\maketitle}{
+	\thispagestyle{empty}
+	\if@titlepage\vspace*{\tpagemargin}\else\fi
+	\includegraphics[height=2cm]{\logost}
+	\begin{flushright}
+	{\Large\headername}\par{\large\@title}
+	\par
+	\vspace{\titlepagespace}{\raggedleft\scriptsize\@author\hspace{1em}\@date}
+	\end{flushright}
+	\vspace{2em}
+}
+
+\newcommand{\backgrounddefault}{}
+
+\newcommand{\backgroundorange}{}
+
+\newcommand{\backgroundgrey}{}
+
+\newcommand{\backgroundviolet}{}
+
+\backgrounddefault

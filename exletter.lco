@@ -1,0 +1,137 @@
+% !TEX encoding = UTF-8 Unicode
+% Author: Stefan Thöni
+% Email: stefan@savvy.ch
+%-------------------------------------------------------
+
+\ProvidesFile{exletter.lco}[2024/10/08 v1.0 (Stefan "Exception" Thöni)]
+
+\RequirePackage{exbasic}
+\RequirePackage[english,ngerman]{babel}
+\RequirePackage{calc}
+\RequirePackage{scrbase}
+
+% -----------------------------------
+% Schrift und Absatz
+% -----------------------------------
+
+\RequirePackage[parfill]{parskip}
+\RequirePackage{ifxetex}
+
+\ifxetex
+	\RequirePackage{fontspec}
+	\RequirePackage{xltxtra}
+	\RequirePackage{xunicode}
+	\setromanfont[BoldFont=Montserrat SemiBold]{Montserrat Light}
+	\setsansfont[	BoldFont=Montserrat SemiBold]{Montserrat Light}
+	\newfontfamily{\fontml}{Montserrat Light}
+	\newfontfamily{\fontme}{Montserrat ExtraLight}
+	\newfontfamily{\fontms}{Montserrat SemiBold}
+	\newfontfamily{\fontmb}{Montserrat Bold}
+	\newfontfamily{\fontmr}{Montserrat Regular}
+	\newfontfamily{\fontmar}{Montserrat Alternates Regular}
+	\newfontfamily{\fontmas}{Montserrat Alternates SemiBold}
+	\newfontfamily{\fontmab}{Montserrat Alternates Bold}
+\else
+	\RequirePackage[utf8]{inputenc}
+	\RequirePackage[T1]{fontenc}
+\fi
+
+\renewcommand{\familydefault}{\sfdefault}
+
+% -----------------------------------
+% Farben
+% -----------------------------------
+\RequirePackage{xcolor}
+
+% -----------------------------------
+% Grafiken
+% -----------------------------------
+\RequirePackage{graphicx}
+\RequirePackage{eso-pic}
+
+\newlength{\tlogowidth}
+\newlength{\hlogoheight}
+\newlength{\hlogospace}
+\newlength{\tpagemargin}
+\newlength{\abstractwidth}
+\AtBeginDocument{
+	\setlength{\tpagemargin}{\textheight/10}
+	\setlength{\abstractwidth}{\linewidth/10*8}
+}
+
+\RequirePackage{multirow}
+
+\LoadLetterOption{SN}
+\KOMAoptions{foldmarks=false}
+\KOMAoptions{foldmarks=blmTp}
+
+
+%-------------------------------------------------------
+% New-Var
+\newkomavar{fromstreet}
+\newkomavar{fromcity}
+\setkomavar{fromname}{Stefan Thöni}
+\setkomavar{fromstreet}{Parkstrasse 7}
+\setkomavar{fromcity}{6312 Steinhausen}
+\setkomavar{fromurl}{stefanthoeni.ch}
+\setkomavar{fromemail}{stefan@savvy.ch}
+\setkomavar{signature}{Stefan Thöni}
+
+\setkomavar{date}{\today}
+
+% kompatibilitaet zu komascript
+\setkomavar{fromaddress}{\usekomavar{fromstreet}\\\usekomavar{fromcity}}
+
+% -----------------------------------
+% Schrift und Absatz
+% -----------------------------------
+\ifxetex
+	\setkomafont{subject}{\bfseries}
+\else
+	% nothing
+\fi
+
+\KOMAoptions{fontsize=11pt}
+
+\DeclareFixedFont{\headtext}{\encodingdefault}{\familydefault}{\seriesdefault}{\shapedefault}{8pt}
+
+%-------------------------------------------------------
+% Positionnen
+%-------------------------------------------------------
+\setplength{lochpos}{-2.5cm}
+\setplength{locvpos}{6.3cm}
+
+
+%-------------------------------------------------------
+% Location
+%-------------------------------------------------------
+\setkomavar{location}{}
+
+%-------------------------------------------------------
+% Kopfzeile
+%-------------------------------------------------------
+\setkomavar{firsthead}{\headtext
+	\begin{tabular}{p{8cm}p{5.5cm}p{5.5cm}}
+		  & \usekomavar{fromname} & \\ 
+		& \usekomavar{fromstreet} & \usekomavar{fromemail} \\
+		& \usekomavar{fromcity} & \usekomavar{fromurl} \\
+	\end{tabular}
+}
+
+%-------------------------------------------------------
+% Fusszeile
+%-------------------------------------------------------
+%\firstfoot{%
+%
+%
+%}
+
+%-------------------------------------------------------
+% Options
+%-------------------------------------------------------
+\widowpenalty10000
+\clubpenalty10000
+\setlength{\emergencystretch}{5em}
+
+\endinput
+
