@@ -58,8 +58,6 @@
 \RequirePackage{graphicx}
 \RequirePackage{eso-pic}
 
-\newlength{\hlogoheight}
-
 % -----------------------------------
 % Title für Organ oder Default
 % -----------------------------------
@@ -151,9 +149,6 @@
 			\draw [color=orange, fill=orange](\ta@bcor+1cm,1cm) rectangle (\paperwidth-1cm,\paperheight-1cm);
 		\end{tikzpicture}}
 }{
-	\begin{flushright}
-		\vfill\biglogonego
-	\end{flushright}
 	\thispagestyle{empty}
 	\newpage
 	\AddToShipoutPicture{\wellen}
@@ -162,7 +157,6 @@
 \renewcommand{\maketitle}{
 	\thispagestyle{empty}
 	\if@titlepage\vspace*{\tpagemargin}\else\fi
-	\includegraphics[height=2cm]{\logost}
 	\begin{flushright}
 	{\Large\headername}\par{\large\@title}
 	\par
