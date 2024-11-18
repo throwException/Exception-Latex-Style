@@ -138,31 +138,45 @@
 	}
 }
 
- \deftriplepagestyle{title}{}{}{}{}{}{}
-
+\deftriplepagestyle{title}{}{}{}{}{}{}
 
 \renewenvironment{titlepage}{
-	\ClearShipoutPicture
-	\AddToShipoutPicture*{
-		\begin{tikzpicture}
-			\draw (0,0) -- (0,0);
-			\draw [color=orange, fill=orange](\ta@bcor+1cm,1cm) rectangle (\paperwidth-1cm,\paperheight-1cm);
-		\end{tikzpicture}}
-}{
 	\thispagestyle{empty}
-	\newpage
-	\AddToShipoutPicture{\wellen}
+	\if@titlepage\vspace*{\tpagemargin}\else\fi
+	\begin{centering}
+
+	\vspace{1em}
+
+	{\LARGE\@title}
+
+	\vspace{1em}
+
+	\ifthenelse{\equal{\@subtitle}{}}{}{\Large\@subtitle\vspace{1em}}
+
+	\ifthenelse{\equal{\theclassified}{}}{}{\LARGE{\textcolor{\classcolor}{\textbf{\theclassified}}}\vspace{1em}}
+
+	{\Large\@author}
+
+	\vspace{1em}
+
+	{\Large\@date}
+
+	\end{centering}
+	\vspace{2em}
+}{
+    \newpage
 }
 
 \renewcommand{\maketitle}{
 	\thispagestyle{empty}
-	\if@titlepage\vspace*{\tpagemargin}\else\fi
 	\begin{flushright}
-	{\Large\headername}\par{\large\@title}
+	\vspace{\titlepagespace}\par\textbf{\huge\@title}
+	\ifthenelse{\equal{\@subtitle}{}}{}{\\ \vspace{0.1cm} {\Large\@subtitle}}
+	\ifthenelse{\equal{\theclassified}{}}{}{\\ \vspace{0.3cm} {\LARGE{\textcolor{\classcolor}{\textbf{\theclassified}}}}}
 	\par
 	\vspace{\titlepagespace}{\raggedleft\scriptsize\@author\hspace{1em}\@date}
 	\end{flushright}
-	\vspace{2em}
+	\vspace{\titlepagespace}
 }
 
 \newcommand{\backgrounddefault}{}
